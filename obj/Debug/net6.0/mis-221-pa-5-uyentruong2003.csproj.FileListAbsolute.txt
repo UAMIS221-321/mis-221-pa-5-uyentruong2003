@@ -1,0 +1,15 @@
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\obj\Debug\net6.0\mis-221-pa-5-uyentruong2003.csproj.AssemblyReference.cache
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\obj\Debug\net6.0\mis-221-pa-5-uyentruong2003.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\obj\Debug\net6.0\mis-221-pa-5-uyentruong2003.AssemblyInfoInputs.cache
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\obj\Debug\net6.0\mis-221-pa-5-uyentruong2003.AssemblyInfo.cs
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\obj\Debug\net6.0\mis-221-pa-5-uyentruong2003.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\bin\Debug\net6.0\mis-221-pa-5-uyentruong2003.exe
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\bin\Debug\net6.0\mis-221-pa-5-uyentruong2003.deps.json
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\bin\Debug\net6.0\mis-221-pa-5-uyentruong2003.runtimeconfig.json
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\bin\Debug\net6.0\mis-221-pa-5-uyentruong2003.dll
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\bin\Debug\net6.0\mis-221-pa-5-uyentruong2003.pdb
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\obj\Debug\net6.0\mis-221-pa-5-uyentruong2003.dll
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\obj\Debug\net6.0\refint\mis-221-pa-5-uyentruong2003.dll
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\obj\Debug\net6.0\mis-221-pa-5-uyentruong2003.pdb
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\obj\Debug\net6.0\mis-221-pa-5-uyentruong2003.genruntimeconfig.cache
+C:\Users\DELL\Documents\MIS\C#\mis_221\mis-221-pa-5-uyentruong2003\obj\Debug\net6.0\ref\mis-221-pa-5-uyentruong2003.dll
