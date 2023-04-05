@@ -72,7 +72,12 @@ namespace mis_221_pa_5_uyentruong2003
 
         public override string ToString()
         {
-            return $"{trainerName}#{trainerMailingAddress}#{trainerEmailAddress}";
+            return $"{trainerID} - {trainerName} - {trainerMailingAddress} - {trainerEmailAddress}";
+        }
+
+        public string ToFile()
+        {
+            return $"{trainerID}#{trainerName}#{trainerMailingAddress}#{trainerEmailAddress}";
         }
     }
 }  

@@ -1,0 +1,4 @@
+1#John Doe#123 Dirt Rd#jdoe@ua.edu
+2#Mattie Bryant#23 Univ. Blvd#mbryant@gmail.com
+3#Jeff Lucas#201 McCorvey Dr#jlucass@ua.edu
+4#Uyen Truong#224336 Univ. Station#utruong@ua.edu

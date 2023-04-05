@@ -15,10 +15,24 @@ namespace mis_221_pa_5_uyentruong2003
             StreamReader inFile = new StreamReader("trainers.txt");
 
             //process file:
-            Trainers.SetCount(0);
-            string line = inFile.ReadLine();
+            //prime read:
+            Trainers.SetCount(0); 
+            string line = inFile.ReadLine(); 
             while(line != null){
-                // trainers[Trainers.GetCount()] = 
+                // split the line:
+                string[] temp = line.Split('#');
+                // create a new obj 'trainer' & pass the info into the constructor:
+                trainers[Trainers.GetCount()] = new Trainers(int.Parse(temp[0]),temp[1],temp[2],temp[3]);
+                //update read:
+                line = inFile.ReadLine();
+                Trainers.IncCount();
+            }
+            //close file:
+            inFile.Close();
+
+            // print out the Trainers[] in console:
+            for (int i = 0; i < Trainers.GetCount(); i++){
+                System.Console.WriteLine(trainers[i].ToString());
             }
         }
 
@@ -41,8 +55,22 @@ namespace mis_221_pa_5_uyentruong2003
 
             // Save the new trainer into the array:
             trainers[Trainers.GetCount()-1] = newTrainer;
+
+            // Save to file:
+            Save();
         }
 
+        // Save:
+        private void Save(){
+            //open file
+            StreamWriter outFile = new StreamWriter("trainers.txt");
+            //process file
+            for (int i = 0; i<Trainers.GetCount(); i++){
+                outFile.WriteLine(trainers[i].ToFile());
+            }
+            //close file
+            outFile.Close();
+        }
         // Edit:
         public void EditTrainer(){
             System.Console.WriteLine("Prompt ");    
