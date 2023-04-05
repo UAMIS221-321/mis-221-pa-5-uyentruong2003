@@ -9,7 +9,20 @@ namespace mis_221_pa_5_uyentruong2003
             this.trainers = trainers;
         }
 
-        // Add:
+        //Get Trainers from File:
+        public void GetAllTrainersFromFile(){
+            //open file:
+            StreamReader inFile = new StreamReader("trainers.txt");
+
+            //process file:
+            Trainers.SetCount(0);
+            string line = inFile.ReadLine();
+            while(line != null){
+                // trainers[Trainers.GetCount()] = 
+            }
+        }
+
+        // Add:   
         public void AddTrainer(){
             // Create a new trainer:
             Trainers newTrainer = new Trainers();

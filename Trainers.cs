@@ -20,7 +20,6 @@ namespace mis_221_pa_5_uyentruong2003
         }
 
         // Settors & Gettors:
-
         // static count:
         static public void SetCount(int count){
             Trainers.count = count;
@@ -76,4 +75,4 @@ namespace mis_221_pa_5_uyentruong2003
             return $"{trainerName}#{trainerMailingAddress}#{trainerEmailAddress}";
         }
     }
-}
+}  
