@@ -7,6 +7,7 @@ namespace mis_221_pa_5_uyentruong2003
         private string trainerMailingAddress;
         private string trainerEmailAddress;
         static private int count;
+        static private int maxID;
         // Constructors:
         public Trainers(){
 
@@ -68,6 +69,18 @@ namespace mis_221_pa_5_uyentruong2003
 
         public string GetTrainerEmailAddress(){
             return trainerEmailAddress;
+        }
+
+        static public void SetMaxID(int maxID){
+            Trainers.maxID = maxID;
+        }
+
+        static public int GetMaxID(){
+            return Trainers.maxID;
+        }
+
+        static public void IncMaxID(){
+            Trainers.maxID ++;
         }
 
         public override string ToString()

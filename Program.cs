@@ -7,4 +7,9 @@ Trainers[] trainers = new Trainers[100];
 TrainerUtility utility = new TrainerUtility(trainers);
 // Display trainers list:
 utility.GetAllTrainersFromFile();
-utility.AddTrainer();
+
+// // Add a new trainer:
+// utility.AddTrainer();
+
+// Edit an existing trainer:
+utility.EditTrainer();
