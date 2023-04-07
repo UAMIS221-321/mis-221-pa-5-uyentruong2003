@@ -34,6 +34,10 @@ namespace mis_221_pa_5_uyentruong2003
             Trainers.count++;
         }
 
+        static public void DecCount(){
+            Trainers.count--;
+        }
+
         // trainerID:
 
         public void SetTrainerID(int trainerID){
