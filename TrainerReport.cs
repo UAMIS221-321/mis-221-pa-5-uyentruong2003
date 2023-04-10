@@ -7,12 +7,6 @@ namespace mis_221_pa_5_uyentruong2003
             this.trainers = trainers;
         }
         
-        public void PrintAllTrainersFromFile(){
-            System.Console.WriteLine("\nLIST OF TRAINERS:");
-            // print out the Trainers[] in console:
-            for (int i = 0; i < Trainers.GetCount(); i++){
-                System.Console.WriteLine(trainers[i].ToString());
-            }
-        }
+    
     }
 }

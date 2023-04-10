@@ -16,44 +16,40 @@ static void PressKeyClearScreen(){
     Console.Clear();
 }
 
-// ManageTrainers()
-Trainers[] trainers = new Trainers[100];
-TrainerUtility utility = new TrainerUtility(trainers);
-// TrainerReport report = new TrainerReport(trainers);
-string choice = GetChoice("View Trainer List","Add a Trainer","Edit a Trainer","Delete a Trainer","Exit to Main Menu");
+// // ManageTrainers()
+// Trainers[] trainers = new Trainers[100];
+// TrainerUtility utility = new TrainerUtility(trainers);
+// // TrainerReport report = new TrainerReport(trainers);
+// string choice = GetChoice("View Trainer List","Add a Trainer","Edit a Trainer","Delete a Trainer","Exit to Main Menu");
 
-while(choice != "5"){
-        if(choice == "1"){
-            Console.Clear();
-            utility.GetAllTrainersFromFile();
-            utility.PrintFile();
-            PressKeyClearScreen();
-        }else if (choice == "2"){
-            Console.Clear();
-            utility.GetAllTrainersFromFile();
-            utility.PrintFile();
-            System.Console.WriteLine();
-            utility.AddTrainer();
-            PressKeyClearScreen();
-        }else if (choice == "3"){
-            Console.Clear();
-            utility.GetAllTrainersFromFile();
-            utility.PrintFile();
-            System.Console.WriteLine();
-            utility.EditTrainer();
-            PressKeyClearScreen();
-        } else if (choice == "4"){
-            Console.Clear();
-            utility.GetAllTrainersFromFile();
-            utility.PrintFile();
-            System.Console.WriteLine();
-            utility.DeleteTrainer();
-            PressKeyClearScreen();
-        } else{
-            System.Console.WriteLine("Invalid choice. Please only enter a number 1-5.");
-        }
+// while(choice != "5"){
+//         if(choice == "1"){
+//             Console.Clear();
+//             utility.GetAllTrainersFromFile();
+//             PressKeyClearScreen();
+//         }else if (choice == "2"){
+//             Console.Clear();
+//             utility.GetAllTrainersFromFile();
+//             System.Console.WriteLine();
+//             utility.AddTrainer();
+//             PressKeyClearScreen();
+//         }else if (choice == "3"){
+//             Console.Clear();
+//             utility.GetAllTrainersFromFile();
+//             System.Console.WriteLine();
+//             utility.EditTrainer();
+//             PressKeyClearScreen();
+//         } else if (choice == "4"){
+//             Console.Clear();
+//             utility.GetAllTrainersFromFile();
+//             System.Console.WriteLine();
+//             utility.DeleteTrainer();
+//             PressKeyClearScreen();
+//         } else{
+//             System.Console.WriteLine("Invalid choice. Please only enter a number 1-5.");
+//         }
 
-        choice = GetChoice("View Trainer List","Add a Trainer","Edit a Trainer","Delete a Trainer","Exit to Main Menu");
+//         choice = GetChoice("View Trainer List","Add a Trainer","Edit a Trainer","Delete a Trainer","Exit to Main Menu");
 
 
-    }
+//     }

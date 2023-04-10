@@ -30,11 +30,11 @@ namespace mis_221_pa_5_uyentruong2003
             Trainers.SetMaxID(trainers[Trainers.GetCount()-1].GetTrainerID());
             //close file:
             inFile.Close();
-            
+            PrintFile();
         }
 
         // Print out the file:
-        public void PrintFile(){
+        private void PrintFile(){
             System.Console.WriteLine("\nLIST OF TRAINERS:");
             // print out the Trainers[] in console:
             for (int i = 0; i < Trainers.GetCount(); i++){
