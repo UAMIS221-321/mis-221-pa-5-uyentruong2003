@@ -7,13 +7,16 @@ namespace mis_221_pa_5_uyentruong2003
         private string sessionDate;
         private string sessionTime;
         private double sessionCost;
-        private bool sessionStatus;
+        private string sessionStatus;
+
+        static private int count;
+        static private int maxID;
 
         public Listings(){
 
         }
 
-        public Listings(int listingID, string trainerName, string sessionDate, string sessionTime, double sessionCost, bool sessionStatus){
+        public Listings(int listingID, string trainerName, string sessionDate, string sessionTime, double sessionCost, string sessionStatus){
             this.listingID = listingID;
             this.trainerName = trainerName;
             this.sessionDate = sessionDate;
@@ -66,23 +69,53 @@ namespace mis_221_pa_5_uyentruong2003
         }
 
 
-        public void SetSessionStatus(bool sessionStatus){
+        public void SetSessionStatus(string sessionStatus){
             this.sessionStatus = sessionStatus;
         }
 
-        public bool GetSessionStatus(){
+        public string GetSessionStatus(){
             return sessionStatus;
+        }
+
+
+        static public void SetCount(int count){
+            Listings.count = count;
+        }
+
+        static public int GetCount(){
+            return Listings.count;
+        }
+
+        static public void IncCount(){
+            Listings.count++;
+        }
+
+        static public void DecCount(){
+            Listings.count--;
+        }
+
+        static public void SetMaxID(int maxID){
+            Listings.maxID = maxID;
+        }
+
+        static public int GetMaxID(){
+            return Listings.maxID;
+        }
+
+        static public void IncMaxID(){
+            Listings.maxID++;
         }
 
         public override string ToString()
         {
-            return $"{this.listingID} - {this.trainerName} - {this.sessionDate} - {this.sessionTime} - {this.sessionCost} - {this.sessionStatus}";
+            return $"SessionID: {this.listingID}\nTrainer: {this.trainerName}\nDate:{this.sessionDate}\nTime: {this.sessionTime}\nPrice: ${this.sessionCost}\nStatus: {this.sessionStatus}\n \n";
         }
-
         public string ToFile()
         {
             return $"{this.listingID}#{this.trainerName}#{this.sessionDate}#{this.sessionTime}#{this.sessionCost}#{this.sessionStatus}";
         }
+
+         
 
     }
 }

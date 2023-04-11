@@ -27,14 +27,15 @@ namespace mis_221_pa_5_uyentruong2003
                 line = inFile.ReadLine();
                 Trainers.IncCount();
             }
+            // Update the max ID:
             Trainers.SetMaxID(trainers[Trainers.GetCount()-1].GetTrainerID());
             //close file:
             inFile.Close();
-            PrintFile();
+            PrintOnScreen();
         }
 
         // Print out the file:
-        private void PrintFile(){
+        private void PrintOnScreen(){
             System.Console.WriteLine("\nLIST OF TRAINERS:");
             // print out the Trainers[] in console:
             for (int i = 0; i < Trainers.GetCount(); i++){
@@ -99,18 +100,8 @@ namespace mis_221_pa_5_uyentruong2003
 
         }
 
-        // Find the searched trainer index in the array:
-        private int FindIndex(int searchID){
-            for (int i = 0; i < Trainers.GetCount(); i++){
-                if (trainers[i].GetTrainerID() == searchID){
-                    return i;
-                }
-            }
-            return -1;
-        }
-        
         // GetSearchIndex:
-        private int GetSearchIndex(string action){
+        private int GetSearchedTrainerIndex(string action){
             // Prompt user to enter the trainer ID
             System.Console.WriteLine($"Enter the ID of the trainer you want to {action}: ");    
             string input = Console.ReadLine();
@@ -119,14 +110,25 @@ namespace mis_221_pa_5_uyentruong2003
             int searchedTrainerID = CheckInt(input);
 
             // Get the index of the searched trainer:
-            int searchIndex = FindIndex(searchedTrainerID);
+            int searchIndex = FindIndexFromTrainersArr(searchedTrainerID);
             return searchIndex;
         }
+
+        // Find the searched trainer index in the array:
+        private int FindIndexFromTrainersArr(int searchID){
+            for (int i = 0; i < Trainers.GetCount(); i++){
+                if (trainers[i].GetTrainerID() == searchID){
+                    return i;
+                }
+            }
+            return -1;
+        }
+        
 
         // Edit:
         public void EditTrainer(){
             // Get the searchIndex:
-            int searchIndex = GetSearchIndex("edit");
+            int searchIndex = GetSearchedTrainerIndex("edit");
 
             // Search through the array of trainers:
             if (searchIndex != -1){
@@ -141,7 +143,7 @@ namespace mis_221_pa_5_uyentruong2003
         // Delete a trainer:
         public void DeleteTrainer(){
             // Get the searchIndex:
-            int searchIndex = GetSearchIndex("delete");
+            int searchIndex = GetSearchedTrainerIndex("delete");
             if (searchIndex != -1){
                 // Ask for confirmation:
                 System.Console.WriteLine($"Are you sure you want to delete: \"{trainers[searchIndex].ToString()}\" ?");
