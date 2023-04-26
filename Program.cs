@@ -1,96 +1,209 @@
 ﻿using mis_221_pa_5_uyentruong2003;
-Console.Clear();
-// Main Menu:
+using System;
+using System.Collections.Generic;
+using System.Text;
+using static System.Console;
+using System.Linq;
+using System.Threading.Tasks;
+MainMenu();
 
-static string GetChoice(string menuName, string opt1,string opt2,string opt3,string opt4,string opt5){
-    System.Console.WriteLine($"\n{menuName} MENU: ");
-    System.Console.WriteLine($"\n1.{opt1}\n2.{opt2}\n3.{opt3}\n4.{opt4}\n5.{opt5}\n");
-    System.Console.WriteLine("Please enter your choice: ");
-    string choice = Console.ReadLine();
-    return choice;
-}
-
-static void PressKeyClearScreen(){
-    System.Console.WriteLine("\nPress any key to go back...");
+static void PressKeyGoBack(){
+    System.Console.WriteLine("Press any key to go back...");
     Console.ReadKey();
-    Console.Clear();
 }
 
-// // ManageTrainers()
-// Trainers[] trainers = new Trainers[100];
-// TrainerUtility utility = new TrainerUtility(trainers);
-// // TrainerReport report = new TrainerReport(trainers);
-// string choice = GetChoice("ManageTrainers","View Trainer List","Add a Trainer","Edit a Trainer","Delete a Trainer","Exit to Main Menu");
+static void MainMenu(){
+    Console.Clear();
+    string prompt = "MAIN MENU:";
+    string[] options = {"Manage Trainers", "Manage Listings","Manage Bookings","Run Reports", "Exit Program"};
+    Action[] actions = {ManageTrainersMenu, ManageListingsMenu, ManageBookingsMenu,RunReportsMenu,ExitProgram};
+    Menu mainMenu = new Menu(prompt, options, actions);
+    int selectedIndex = mainMenu.MakeChoice();
+    mainMenu.RouteEm(selectedIndex);
+}
 
-// while(choice != "5"){
-//         if(choice == "1"){
-//             Console.Clear();
-//             utility.GetAllTrainersFromFile();
-//             PressKeyClearScreen();
-//         }else if (choice == "2"){
-//             Console.Clear();
-//             utility.GetAllTrainersFromFile();
-//             System.Console.WriteLine();
-//             utility.AddTrainer();
-//             PressKeyClearScreen();
-//         }else if (choice == "3"){
-//             Console.Clear();
-//             utility.GetAllTrainersFromFile();
-//             System.Console.WriteLine();
-//             utility.EditTrainer();
-//             PressKeyClearScreen();
-//         } else if (choice == "4"){
-//             Console.Clear();
-//             utility.GetAllTrainersFromFile();
-//             System.Console.WriteLine();
-//             utility.DeleteTrainer();
-//             PressKeyClearScreen();
-//         } else{
-//             System.Console.WriteLine("Invalid choice. Please only enter a number 1-5.");
-//         }
+// MANAGE TRAINERS:
+static void ManageTrainersMenu(){
+    Console.Clear();
+    string prompt = "MANAGE TRAINERS MENU:";
+    string[] options = {"View Trainers", "Add Trainers","Edit Trainers","Delete Trainers", "Exit"};
+    Action[] actions = {ViewTrainers, AddTrainers, EditTrainers,DeleteTrainers,GoBack};
+    Menu manageTrainersMenu = new Menu(prompt, options, actions);
+    int selectedIndex = manageTrainersMenu.MakeChoice();
+    manageTrainersMenu.RouteEm(selectedIndex);
+    // Automatically reprompt mainmenu
+    MainMenu();
+}
+static void ViewTrainers(){
+    Trainers[] trainers = new Trainers[100];
+    TrainerUtility utility = new TrainerUtility(trainers);
+    utility.GetAllTrainersFromFile();
+    PressKeyGoBack();
+    // Reprompt manageTrainers Menu
+    ManageTrainersMenu();
+}
+static void AddTrainers(){
+    Trainers[] trainers = new Trainers[100];
+    TrainerUtility utility = new TrainerUtility(trainers);
+    utility.GetAllTrainersFromFile();
+    System.Console.WriteLine();
+    utility.AddTrainer();
+    PressKeyGoBack();
+    // Reprompt manageTrainers Menu
+    ManageTrainersMenu();
+}
+static void EditTrainers(){
+    Trainers[] trainers = new Trainers[100];
+    TrainerUtility utility = new TrainerUtility(trainers);
+    utility.GetAllTrainersFromFile();
+    System.Console.WriteLine();
+    utility.EditTrainer();
+    PressKeyGoBack();
+    // Reprompt manageTrainers Menu
+    ManageTrainersMenu();
+}
+static void DeleteTrainers(){
+    Trainers[] trainers = new Trainers[100];
+    TrainerUtility utility = new TrainerUtility(trainers);
+    utility.GetAllTrainersFromFile();
+    System.Console.WriteLine();
+    utility.DeleteTrainer();
+    PressKeyGoBack();
+    // Reprompt manageTrainers Menu
+    ManageTrainersMenu();
+}
+static void GoBack(){
+    //not doing anything
+}
 
-//         choice = GetChoice("ManageTrainers","View Trainer List","Add a Trainer","Edit a Trainer","Delete a Trainer","Exit to Main Menu");
+//MANAGE LISTINGS:
+static void ManageListingsMenu(){
+    Console.Clear();
+    string prompt = "MANAGE LISTINGS MENU:";
+    string[] options = {"View Listings", "Add Listings","Edit Listings","Delete Listings", "Exit"};
+    Action[] actions = {ViewListings, AddListings, EditListings,DeleteListings,GoBack};
+    Menu manageListingsMenu = new Menu(prompt, options, actions);
+    int selectedIndex = manageListingsMenu.MakeChoice();
+    manageListingsMenu.RouteEm(selectedIndex);
+    // Automatically reprompt mainmenu
+    MainMenu();
+}
+static void ViewListings(){
+    Listings[] listings = new Listings[100];
+    ListingUtility utility = new ListingUtility(listings);
+    utility.GetAllListingsFromFile();
+    System.Console.WriteLine();
+    PressKeyGoBack();
+    // Automatically reprompt managelisting menu
+    ManageListingsMenu();
+}
+static void AddListings(){
+    Listings[] listings = new Listings[100];
+    ListingUtility utility = new ListingUtility(listings);
+    utility.GetAllListingsFromFile();
+    utility.AddListing();
+    System.Console.WriteLine();
+    PressKeyGoBack();
+    // Automatically reprompt managelisting menu
+    ManageListingsMenu();
+}
+static void EditListings(){
+    Listings[] listings = new Listings[100];
+    ListingUtility utility = new ListingUtility(listings);
+    utility.GetAllListingsFromFile();
+    utility.EditListing();
+    System.Console.WriteLine();
+    PressKeyGoBack();
+    // Automatically reprompt managelisting menu
+    ManageListingsMenu();
+}
+static void DeleteListings(){
+    Listings[] listings = new Listings[100];
+    ListingUtility utility = new ListingUtility(listings);
+    utility.GetAllListingsFromFile();
+    utility.DeleteListing();
+    System.Console.WriteLine();
+    PressKeyGoBack();
+    // Automatically reprompt managelisting menu
+    ManageListingsMenu();
+}
+
+//MANAGE BOOKINGS:
+static void ManageBookingsMenu(){
+    Console.Clear();
+    string prompt = "MANAGE BOOKINGS MENU:";
+    string[] options = {"View Bookings", "Add Bookings","Edit Bookings","Delete Bookings", "Exit"};
+    Action[] actions = {ViewBookings, AddBookings, EditBookings,DeleteBookings,GoBack};
+    Menu manageBookingsMenu = new Menu(prompt, options, actions);
+    int selectedIndex = manageBookingsMenu.MakeChoice();
+    manageBookingsMenu.RouteEm(selectedIndex);
+    // Automatically return to Main Menu:
+    MainMenu();
+}
+static void ViewBookings(){
+    System.Console.WriteLine("Placeholder for View Bookings. Press any key to continue...");
+    Console.ReadKey();
+    // Automatically reprompt managebooking menu
+    ManageBookingsMenu();
+}
+static void AddBookings(){
+    System.Console.WriteLine("Placeholder for Add Bookings. Press any key to continue...");
+    Console.ReadKey();
+    // Automatically reprompt managebooking menu
+    ManageBookingsMenu();
+}
+static void EditBookings(){
+    System.Console.WriteLine("Placeholder for Edit Bookings. Press any key to continue...");
+    Console.ReadKey();
+    // Automatically reprompt managebooking menu
+    ManageBookingsMenu();
+}
+static void DeleteBookings(){
+    System.Console.WriteLine("Placeholder for Delete Bookings. Press any key to continue...");
+    Console.ReadKey();
+    // Automatically reprompt managebooking menu
+    ManageBookingsMenu();
+}
+
+//RUN REPORTS:
+static void RunReportsMenu(){
+    Console.Clear();
+    string prompt = "RUN REPORT MENU:";
+    string[] options = {"Individual Customer Sessions Report", "Historical Customer Sessions Report","Historical Revenue Report", "Exit"};
+    Action[] actions = {IndCusSesReport, HisCusSesReport, HisRevReport,GoBack};
+    Menu runReportsMenu = new Menu(prompt, options, actions);
+    int selectedIndex = runReportsMenu.MakeChoice();
+    runReportsMenu.RouteEm(selectedIndex);
+    // Automatically reprompt mainmenu
+    MainMenu();
+}
+static void IndCusSesReport(){
+    System.Console.WriteLine("Placeholder for IndCusSesReport. Press any key to continue...");
+    Console.ReadKey();
+    RunReportsMenu();
+}
+static void HisCusSesReport(){
+    System.Console.WriteLine("Placeholder for HisCusSesReport. Press any key to continue...");
+    Console.ReadKey();
+    RunReportsMenu();
+}
+static void HisRevReport(){
+    System.Console.WriteLine("Placeholder for HisRevReport. Press any key to continue...");
+    Console.ReadKey();
+    RunReportsMenu();
+}
+
+//EXIT PROGRAM:
+static void ExitProgram(){
+    Environment.Exit(0);
+}
 
 
-//     }
 
 
 
-// ManageListing()
-Listings[] listings = new Listings[100];
-ListingUtility utility = new ListingUtility(listings);
-// ListingReport report = new ListingReport(Listings);
-string choice = GetChoice("ManageListing", "View Session List","Add a Session","Edit a Session","Delete a Session","Exit to Main Menu");
-
-while(choice != "5"){
-        if(choice == "1"){
-            Console.Clear();
-            utility.GetAllListingsFromFile();
-            PressKeyClearScreen();
-        }else if (choice == "2"){
-            Console.Clear();
-            utility.GetAllListingsFromFile();
-            System.Console.WriteLine();
-            utility.AddListing();
-            PressKeyClearScreen();
-        }else if (choice == "3"){
-            Console.Clear();
-            utility.GetAllListingsFromFile();
-            System.Console.WriteLine();
-            utility.EditListing();
-            PressKeyClearScreen();
-        } else if (choice == "4"){
-            Console.Clear();
-            utility.GetAllListingsFromFile();
-            System.Console.WriteLine();
-            utility.DeleteListing();
-            PressKeyClearScreen();
-        } else{
-            System.Console.WriteLine("Invalid choice. Please only enter a number 1-5.");
-        }
-
-        choice = GetChoice("ManageListing","View Session List","Add a Session","Edit a Session","Delete a Session","Exit to Main Menu");
 
 
-    }
+
+
 

@@ -1,7 +1,6 @@
-1#Mary Doe#123 Dirt Rd#mdoe@gmail.com
+1#Jane Doe#123 Dirt Rd#jdoe@gmail.com
 2#Mattie Bryant#23 Univ. Blvd#mbryant@gmail.com
 3#Jeff Lucas#201 McCorvey Dr#jlucas@ua.edu
 4#Carla Jones#55 West Blvd#cjones@gmail.com
 5#Jimmy Johns#1111 16th St#jj@outlook.com
 6#Sarah Smith#123 School Avenue#ssmith@gmail.com
-

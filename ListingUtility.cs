@@ -67,6 +67,30 @@ namespace mis_221_pa_5_uyentruong2003
             listing.SetSessionStatus(Console.ReadLine()); 
         }
 
+        static bool DateValidation(string input){
+            bool isValid = true;
+            // Check format (mm/dd/yyyy):
+            if (!(input.Length == 10 && input[2] == '/' && input[5] == '/')){
+                System.Console.WriteLine("Please input in format mm/dd/yyyy");
+                isValid = false;
+            } else{
+                // Check if a valid date:
+                DateTime date;
+                if (!DateTime.TryParse(input, out date)){
+                    System.Console.WriteLine("Please input a valid date");
+                    isValid = false;
+                } else{
+                    // Restrict to only after today & within current year:
+                    int currYear = DateTime.Today.Year;
+                    if (DateTime.Compare(date,DateTime.Today)<=0 || date.Year != currYear){
+                        System.Console.WriteLine("Only enter a date after today but within the current year");
+                        isValid = false;
+                    }
+                }
+                
+            }
+            return isValid;
+        }
         // Add:
         public void AddListing(){
             Listings newListing = new Listings();
@@ -180,4 +204,5 @@ namespace mis_221_pa_5_uyentruong2003
             } else System.Console.WriteLine("Session ID not found.");
         }
     }
-}
+}   
+

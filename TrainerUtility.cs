@@ -3,6 +3,7 @@ namespace mis_221_pa_5_uyentruong2003
     public class TrainerUtility
     {
         private Trainers[] trainers;
+        
 
         // Constructors:
         public TrainerUtility(Trainers[] trainers){
@@ -10,35 +11,31 @@ namespace mis_221_pa_5_uyentruong2003
         }
 
         //Get Trainers from File:
+        // Get from file:
         public void GetAllTrainersFromFile(){
             //open file:
             StreamReader inFile = new StreamReader("trainers.txt");
-
             //process file:
-            //prime read:
-            Trainers.SetCount(0);
-            string line = inFile.ReadLine(); 
-            while(line != null){
-                // split the line:
-                string[] temp = line.Split('#');
-                // create a new obj 'trainer' & pass the info into the constructor:
-                trainers[Trainers.GetCount()] = new Trainers(int.Parse(temp[0]),temp[1],temp[2],temp[3]);
-                //update read:
-                line = inFile.ReadLine();
-                Trainers.IncCount();
+            string lined = inFile.ReadLine();
+            Trainers.SetCount(0); // prime read
+            while(lined != null){
+                string[] tempD = lined.Split('#');
+                trainers[Trainers.GetCount()] = new Trainers(int.Parse(tempD[0]), tempD[1], tempD[2], tempD[3]);
+                lined = inFile.ReadLine();
+                Trainers.IncCount(); // update read
             }
-            // Update the max ID:
+
+            //Update the max ID:
             Trainers.SetMaxID(trainers[Trainers.GetCount()-1].GetTrainerID());
+
             //close file:
             inFile.Close();
             PrintOnScreen();
         }
-
-        // Print out the file:
+        // Print the sessions from file on screen:
         private void PrintOnScreen(){
-            System.Console.WriteLine("\nLIST OF TRAINERS:");
-            // print out the Trainers[] in console:
-            for (int i = 0; i < Trainers.GetCount(); i++){
+            System.Console.WriteLine("LIST OF TRAINERS: ");
+            for (int i = 0; i< Trainers.GetCount(); i++){
                 System.Console.WriteLine(trainers[i].ToString());
             }
         }

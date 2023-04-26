@@ -33,7 +33,7 @@ namespace mis_221_pa_5_uyentruong2003
 
         public int GetListingID(){
             return listingID;
-        }
+        }  
 
         public void SetTrainerName(string trainerName){
             this.trainerName = trainerName;
