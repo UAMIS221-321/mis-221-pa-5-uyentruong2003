@@ -19,9 +19,6 @@ namespace mis_221_pa_5_uyentruong2003
                 Bookings.IncCount(); // update read
             }
 
-            //Update the max ID:
-            Bookings.SetMaxID(bookings[Bookings.GetCount()-1].GetSessionID());
-
             //close file:
             inFile.Close();
         }
@@ -33,15 +30,15 @@ namespace mis_221_pa_5_uyentruong2003
         }
                 // Add:
         public void AddBooking(){
-            Bookings newBooking = new Bookings();
-            // get user's input:
-            System.Console.WriteLine("Enter the info of the new session below: ");
-            
-            // PromptUser(ref newBooking);
-
-            // create user's id:
-            Bookings.IncMaxID();
-            newBooking.SetSessionID(Bookings.GetMaxID());
+            Bookings newBooking = new Bookings();   
+            // Get & Print available listings:
+            Listings[] availableListings = GetAvailableListings();
+            //Get User input:
+            System.Console.WriteLine("Enter the information of the new booking below: ");
+            //Prompt for sessionID input - validate only session available
+            //Retrieve info about sessionDate, trainerName, and trainerID from Listings (trainerID might need to go further to Trainers)
+            //Update status in Listings to "Booked"
+            PromptUser(ref newBooking);
 
             // Add the new listing to the bookings array:
             bookings[Bookings.GetCount()] = newBooking;
@@ -62,6 +59,36 @@ namespace mis_221_pa_5_uyentruong2003
             //close file:
             outFile.Close();
         }
+        private Listings[] GetAvailableListings(){
+            Listings[] listings = new Listings[100];
+            ListingUtility lUtility = new ListingUtility(listings);
+            lUtility.GetAllListingsFromFile();
+            Listings[] availableListings = new Listings[100];
+            int availableCount = 0;
+            //only print out the available sessions:
+            for (int i = 0; i<Listings.GetCount(); i++){
+                if (listings[i].GetSessionStatus() == "Available"){
+                    System.Console.WriteLine(listings[i].ToString());
+                    availableListings[availableCount] = listings[i];
+                    availableCount ++;
+                }
+            }
+            return availableListings;
+        }
+        private void PromptUser(ref Bookings booking){
+            InputSessionID(ref booking);
+            InputCustomerName(ref booking);
+            InputCustomerEmail(ref booking);
+        }
+        private void InputSessionID(ref Bookings booking){
+
+        }
+        private void InputCustomerName(ref Bookings booking){
+            
+        }
+        private void InputCustomerEmail(ref Bookings booking){
+            
+        
         public void EditBooking(){}
         public void DeleteBooking(){}
     }

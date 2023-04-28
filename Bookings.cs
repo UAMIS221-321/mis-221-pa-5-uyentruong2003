@@ -10,7 +10,7 @@ namespace mis_221_pa_5_uyentruong2003
         private string trainerName;
         private string sessionStatus;
         private static int count;
-        private static int maxID;
+        
         public Bookings(){}
         public Bookings(int sessionID, string customerName, string customerEmail, string sessionDate, 
                             int trainerID, string trainerName, string sessionStatus){
@@ -53,12 +53,6 @@ namespace mis_221_pa_5_uyentruong2003
         static public void DecCount(){
             Bookings.count--;
         }
-        static public void SetMaxID(int maxID){
-            Bookings.maxID = maxID;
-        }
-        static public void IncMaxID(){
-            Bookings.maxID++;
-        }
 
         
         //Getters:
@@ -85,9 +79,6 @@ namespace mis_221_pa_5_uyentruong2003
         }
         static public int GetCount(){
             return Bookings.count;
-        }
-        static public int GetMaxID(){
-            return Bookings.maxID;
         }
 
         //ToString():
