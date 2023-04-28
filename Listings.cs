@@ -2,7 +2,7 @@ namespace mis_221_pa_5_uyentruong2003
 {
     public class Listings
     {
-        private int listingID;
+        private int sessionID;
         private string trainerName;
         private string sessionDate;
         private string sessionTime;
@@ -16,8 +16,8 @@ namespace mis_221_pa_5_uyentruong2003
 
         }
 
-        public Listings(int listingID, string trainerName, string sessionDate, string sessionTime, double sessionCost, string sessionStatus){
-            this.listingID = listingID;
+        public Listings(int sessionID, string trainerName, string sessionDate, string sessionTime, double sessionCost, string sessionStatus){
+            this.sessionID = sessionID;
             this.trainerName = trainerName;
             this.sessionDate = sessionDate;
             this.sessionTime = sessionTime;
@@ -27,12 +27,12 @@ namespace mis_221_pa_5_uyentruong2003
 
         // Setters and Getters:
 
-        public void SetListingID(int listingID){
-            this.listingID = listingID;
+        public void SetSessionID(int sessionID){
+            this.sessionID = sessionID;
         }
 
-        public int GetListingID(){
-            return listingID;
+        public int GetSessionID(){
+            return sessionID;
         }  
 
         public void SetTrainerName(string trainerName){
@@ -108,11 +108,11 @@ namespace mis_221_pa_5_uyentruong2003
 
         public override string ToString()
         {
-            return $"SessionID: {this.listingID}\nTrainer: {this.trainerName}\nDate:{this.sessionDate}\nTime: {this.sessionTime}\nPrice: ${this.sessionCost}\nStatus: {this.sessionStatus}\n \n";
+            return $"SessionID: {this.sessionID}\nTrainer: {this.trainerName}\nDate:{this.sessionDate}\nTime: {this.sessionTime}\nPrice: ${this.sessionCost}\nStatus: {this.sessionStatus}\n \n";
         }
         public string ToFile()
         {
-            return $"{this.listingID}#{this.trainerName}#{this.sessionDate}#{this.sessionTime}#{this.sessionCost}#{this.sessionStatus}";
+            return $"{this.sessionID}#{this.trainerName}#{this.sessionDate}#{this.sessionTime}#{this.sessionCost}#{this.sessionStatus}";
         }
 
          

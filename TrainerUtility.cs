@@ -30,10 +30,9 @@ namespace mis_221_pa_5_uyentruong2003
 
             //close file:
             inFile.Close();
-            PrintOnScreen();
         }
-        // Print the sessions from file on screen:
-        private void PrintOnScreen(){
+        // Print the trainers from file on screen:
+        public void PrintOnScreen(){
             System.Console.WriteLine("LIST OF TRAINERS: ");
             for (int i = 0; i< Trainers.GetCount(); i++){
                 System.Console.WriteLine(trainers[i].ToString());

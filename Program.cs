@@ -38,6 +38,7 @@ static void ViewTrainers(){
     Trainers[] trainers = new Trainers[100];
     TrainerUtility utility = new TrainerUtility(trainers);
     utility.GetAllTrainersFromFile();
+    utility.PrintOnScreen();
     PressKeyGoBack();
     // Reprompt manageTrainers Menu
     ManageTrainersMenu();
@@ -46,6 +47,7 @@ static void AddTrainers(){
     Trainers[] trainers = new Trainers[100];
     TrainerUtility utility = new TrainerUtility(trainers);
     utility.GetAllTrainersFromFile();
+    utility.PrintOnScreen();
     System.Console.WriteLine();
     utility.AddTrainer();
     PressKeyGoBack();
@@ -56,6 +58,7 @@ static void EditTrainers(){
     Trainers[] trainers = new Trainers[100];
     TrainerUtility utility = new TrainerUtility(trainers);
     utility.GetAllTrainersFromFile();
+    utility.PrintOnScreen();
     System.Console.WriteLine();
     utility.EditTrainer();
     PressKeyGoBack();
@@ -66,6 +69,7 @@ static void DeleteTrainers(){
     Trainers[] trainers = new Trainers[100];
     TrainerUtility utility = new TrainerUtility(trainers);
     utility.GetAllTrainersFromFile();
+    utility.PrintOnScreen();
     System.Console.WriteLine();
     utility.DeleteTrainer();
     PressKeyGoBack();
@@ -92,6 +96,7 @@ static void ViewListings(){
     Listings[] listings = new Listings[100];
     ListingUtility utility = new ListingUtility(listings);
     utility.GetAllListingsFromFile();
+    utility.PrintOnScreen();
     System.Console.WriteLine();
     PressKeyGoBack();
     // Automatically reprompt managelisting menu
@@ -101,6 +106,7 @@ static void AddListings(){
     Listings[] listings = new Listings[100];
     ListingUtility utility = new ListingUtility(listings);
     utility.GetAllListingsFromFile();
+    utility.PrintOnScreen();
     utility.AddListing();
     System.Console.WriteLine();
     PressKeyGoBack();
@@ -111,6 +117,7 @@ static void EditListings(){
     Listings[] listings = new Listings[100];
     ListingUtility utility = new ListingUtility(listings);
     utility.GetAllListingsFromFile();
+    utility.PrintOnScreen();
     utility.EditListing();
     System.Console.WriteLine();
     PressKeyGoBack();
@@ -121,6 +128,7 @@ static void DeleteListings(){
     Listings[] listings = new Listings[100];
     ListingUtility utility = new ListingUtility(listings);
     utility.GetAllListingsFromFile();
+    utility.PrintOnScreen();
     utility.DeleteListing();
     System.Console.WriteLine();
     PressKeyGoBack();

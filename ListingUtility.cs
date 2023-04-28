@@ -24,14 +24,13 @@ namespace mis_221_pa_5_uyentruong2003
             }
 
             //Update the max ID:
-            Listings.SetMaxID(listings[Listings.GetCount()-1].GetListingID());
+            Listings.SetMaxID(listings[Listings.GetCount()-1].GetSessionID());
 
             //close file:
             inFile.Close();
-            PrintOnScreen();
         }
         // Print the sessions from file on screen:
-        private void PrintOnScreen(){
+        public void PrintOnScreen(){
             System.Console.WriteLine("LIST OF SESSIONS: ");
             for (int i = 0; i< Listings.GetCount(); i++){
                 System.Console.WriteLine(listings[i].ToString());
@@ -49,58 +48,122 @@ namespace mis_221_pa_5_uyentruong2003
             return outDouble;
         }
         // PromptUser:
-        private void PromptUser(Listings listing){
+        private void PromptUser(ref Listings listing){
+            InputTrainer(ref listing);
+            InputDate(ref listing);
+            InputTime(ref listing);
+            InputCost(ref listing);
+            InputStatus(ref listing);
+        }
+
+        public void InputTrainer(ref Listings listing){
             // Trainer Validation- is the trainer in the trainers list?
             System.Console.Write("Trainer's name: ");
-            listing.SetTrainerName(Console.ReadLine());
-            // Date Validation- include day of the week (in the Listings class):
+            string trainer = Console.ReadLine();
+            Func<string,bool> CheckTrainer = isValidTrainer; 
+            listing.SetTrainerName(InputValidation(ref trainer, "trainer", CheckTrainer));
+        }
+
+        public void InputDate(ref Listings listing){
+            // Date Validation:
             System.Console.Write("Session's date: ");
-            listing.SetSessionDate(Console.ReadLine());
-            // Time Validation- pick from the given set (in the Listings class):
+            string date = Console.ReadLine();
+            Func<string,bool> CheckDate = isValidDate;
+            listing.SetSessionDate(InputValidation(ref date, "date", CheckDate));
+        }
+
+        public void InputTime(ref Listings listing){
+            // Time Validation:
             System.Console.Write("Session's time: ");
-            listing.SetSessionTime(Console.ReadLine());
+            string time = Console.ReadLine();
+            Func<string,bool> CheckTime = isValidTime;
+            listing.SetSessionTime(InputValidation(ref time, "time",CheckTime));
+        }
+        public void InputCost(ref Listings listing){
             // Number Validation- must be double:
             System.Console.Write("Session's cost: ");
             listing.SetSessionCost(CheckDouble(Console.ReadLine()));
+        }
+        public void InputStatus(ref Listings listing){
             // Status Validation- pick either taken or available:
-            System.Console.Write("Session's status: ");
-            listing.SetSessionStatus(Console.ReadLine()); 
+            System.Console.Write("Session's status (Available/Booked): ");
+            string status = Console.ReadLine();
+            Func<string,bool>CheckStatus = isValidStatus;
+            listing.SetSessionStatus(InputValidation(ref status, "status", CheckStatus)); 
         }
 
-        static bool DateValidation(string input){
-            bool isValid = true;
-            // Check format (mm/dd/yyyy):
-            if (!(input.Length == 10 && input[2] == '/' && input[5] == '/')){
-                System.Console.WriteLine("Please input in format mm/dd/yyyy");
-                isValid = false;
-            } else{
-                // Check if a valid date:
-                DateTime date;
-                if (!DateTime.TryParse(input, out date)){
-                    System.Console.WriteLine("Please input a valid date");
-                    isValid = false;
-                } else{
-                    // Restrict to only after today & within current year:
-                    int currYear = DateTime.Today.Year;
-                    if (DateTime.Compare(date,DateTime.Today)<=0 || date.Year != currYear){
-                        System.Console.WriteLine("Only enter a date after today but within the current year");
-                        isValid = false;
-                    }
-                }
-                
+        // Validation of user input based on the bool value returned from an isValid method:
+        private string InputValidation(ref string input, string typeChecked, Func<string,bool> CheckValid){
+            while (!CheckValid(input)){
+                System.Console.WriteLine($"Invalid {typeChecked}. Please try again.");
+                System.Console.Write($"Enter event {typeChecked}: ");
+                input = Console.ReadLine();
             }
-            return isValid;
+            return input;
+        }
+
+        private bool isValidTrainer(string input){
+            bool valid = false;
+            Trainers[] trainers = new Trainers[100];
+            TrainerUtility tUtility = new TrainerUtility(trainers);
+            tUtility.GetAllTrainersFromFile();
+            for (int i =0; i<Trainers.GetCount(); i++){
+                if (input == trainers[i].GetTrainerName()){
+                    valid = true;
+                    break;
+                }
+            }
+            return valid;
+        }
+
+        private bool isValidDate(string input){
+            // Attempt to parse the input as a DateTime object
+            if (DateTime.TryParseExact(input, "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime date)){
+                // If the parsing succeeded, check that the parsed date matches the input string
+                // This is necessary to ensure that the input string is in the correct format
+                return date.ToString("MM/dd/yyyy") == input;
+            }
+
+            // If the parsing failed, the input is not a valid date string
+            return false;
+        }
+        private bool isValidTime(string input){
+            // Parse the user input into a DateTime object
+            DateTime time;
+            if (DateTime.TryParse(input, out time)){
+                // Convert the time to 24-hour format if it's in AM/PM format
+                if (time.ToString("tt") == "PM" && time.Hour != 12)
+                {
+                    time = time.AddHours(12);
+                }
+                else if (time.ToString("tt") == "AM" && time.Hour == 12)
+                {
+                    time = time.AddHours(-12);
+                }
+                return true;
+            } else return false;
+        }
+        private bool isValidStatus(string input){
+            string[] status = {"Available", "Booked"};
+            bool valid = false;
+            for (int i = 0; i<status.Length; i++){
+                if (input == status[i]){
+                    valid = true;
+                    break;
+                }
+            }
+            return valid;
         }
         // Add:
         public void AddListing(){
             Listings newListing = new Listings();
             // get user's input:
             System.Console.WriteLine("Enter the info of the new session below: ");
-            PromptUser(newListing);
+            PromptUser(ref newListing);
 
             // create user's id:
             Listings.IncMaxID();
-            newListing.SetListingID(Listings.GetMaxID());
+            newListing.SetSessionID(Listings.GetMaxID());
 
             // Add the new listing to the listings array:
             listings[Listings.GetCount()] = newListing;
@@ -147,7 +210,7 @@ namespace mis_221_pa_5_uyentruong2003
         // find the Index of the given ID in the listing arr:
         private int FindIndexFromListingsArr(int searchID){
             for (int i = 0; i < Listings.GetCount(); i++){
-                if (listings[i].GetListingID() == searchID){
+                if (listings[i].GetSessionID() == searchID){
                     return i;
                 }
             }
@@ -156,13 +219,13 @@ namespace mis_221_pa_5_uyentruong2003
 
         // Edit:
         public void EditListing(){
-            // get the index of the searched listing from the array by prompting user for the listingID:
+            // get the index of the searched listing from the array by prompting user for the SessionID:
             int searchIndex = GetSearchedListingIndex("edit");
             // Search through the array of trainers:
             if (searchIndex != -1){
                 System.Console.WriteLine("Enter the updated info of the session below:");
                 // Prompt user for updated input:
-                PromptUser(listings[searchIndex]);   
+                PromptUser(ref listings[searchIndex]);   
             } else System.Console.WriteLine("Session ID not found.");
 
             Save();
@@ -175,11 +238,11 @@ namespace mis_221_pa_5_uyentruong2003
             int searchIndex = GetSearchedListingIndex("delete");
             if (searchIndex != -1){
                 // Ask for confirmation:
-                System.Console.WriteLine($"Are you sure you want to delete: \"{listings[searchIndex].ToString()}\" ?");
+                System.Console.WriteLine($"Are you sure you want to delete:\n\"{listings[searchIndex].ToString()}\" ?");
                 string ans = Console.ReadLine();
                 // answer validation:
                 while(ans.ToUpper() != "YES" && ans.ToUpper()!= "NO"){
-                    System.Console.WriteLine("Please only enter Yes or No: ");
+                    System.Console.Write("Please only enter Yes or No: ");
                     ans = Console.ReadLine();
                 }
                 if (ans.ToUpper() == "YES"){
