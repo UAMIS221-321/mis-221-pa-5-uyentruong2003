@@ -61,6 +61,7 @@ static void EditTrainers(){
     utility.PrintOnScreen();
     System.Console.WriteLine();
     utility.EditTrainer();
+    System.Console.WriteLine();
     PressKeyGoBack();
     // Reprompt manageTrainers Menu
     ManageTrainersMenu();
@@ -72,6 +73,7 @@ static void DeleteTrainers(){
     utility.PrintOnScreen();
     System.Console.WriteLine();
     utility.DeleteTrainer();
+    System.Console.WriteLine();
     PressKeyGoBack();
     // Reprompt manageTrainers Menu
     ManageTrainersMenu();
@@ -117,6 +119,7 @@ static void EditListings(){
     ListingUtility utility = new ListingUtility(listings);
     utility.GetAllListingsFromFile();
     utility.PrintOnScreen();
+    System.Console.WriteLine();
     utility.EditListing();
     System.Console.WriteLine();
     PressKeyGoBack();
@@ -128,6 +131,7 @@ static void DeleteListings(){
     ListingUtility utility = new ListingUtility(listings);
     utility.GetAllListingsFromFile();
     utility.PrintOnScreen();
+    System.Console.WriteLine();
     utility.DeleteListing();
     System.Console.WriteLine();
     PressKeyGoBack();
@@ -172,6 +176,7 @@ static void EditBookings(){
     BookingUtility utility = new BookingUtility(bookings);
     utility.GetAllBookingsFromFile();
     utility.PrintOnScreen();
+    System.Console.WriteLine();
     utility.EditBooking();
     System.Console.WriteLine();
     PressKeyGoBack();
@@ -183,6 +188,7 @@ static void CancelBookings(){
     BookingUtility utility = new BookingUtility(bookings);
     utility.GetAllBookingsFromFile();
     utility.PrintOnScreen();
+    System.Console.WriteLine();
     utility.CancelBooking();
     System.Console.WriteLine();
     PressKeyGoBack();
@@ -205,12 +211,15 @@ static void RunReportsMenu(){
 static void IndCusSesReport(){
     Reports report = new Reports();
     report.IndividualCustomerSession();
+    System.Console.WriteLine();
     PressKeyGoBack();
     RunReportsMenu();
 }
 static void HisCusSesReport(){
-    System.Console.WriteLine("Placeholder for HisCusSesReport. Press any key to continue...");
-    Console.ReadKey();
+    Reports report = new Reports();
+    report.HistoricalCustomerSession();
+    System.Console.WriteLine();
+    PressKeyGoBack();
     RunReportsMenu();
 }
 static void HisRevReport(){
