@@ -106,8 +106,8 @@ namespace mis_221_pa_5_uyentruong2003
             int trainerID = CheckInt(input);
 
             // Get the index of the searched trainer:
-            int searchIndex = FindIndex(trainerID);
-            return searchIndex;
+            int trainerIndex = FindIndex(trainerID);
+            return trainerIndex;
         }
 
         // Find the searched trainer index in the array given the trainerID:
@@ -150,10 +150,10 @@ namespace mis_221_pa_5_uyentruong2003
         // Delete a trainer:
         public void DeleteTrainer(){
             // Get the searchIndex:
-            int searchIndex = GetSearchedTrainerIndex("delete");
-            if (searchIndex != -1){
+            int trainerIndex = GetSearchedTrainerIndex("delete");
+            if (trainerIndex != -1){
                 // Ask for confirmation:
-                System.Console.WriteLine($"Are you sure you want to delete: \"{trainers[searchIndex].ToString()}\" ?");
+                System.Console.WriteLine($"Are you sure you want to delete: \"{trainers[trainerIndex].ToString()}\" ?");
                 string ans = Console.ReadLine();
                 // answer validation:
                 while(ans.ToUpper() != "YES" && ans.ToUpper()!= "NO"){
@@ -161,28 +161,55 @@ namespace mis_221_pa_5_uyentruong2003
                     ans = Console.ReadLine();
                 }
                 if (ans.ToUpper() == "YES"){
-                    // Remove the search trainer and update the array:
+                    // Remove any Listings & Bookings of this trainer:
+                    RemoveRelatedListingsAndBookings(trainers[trainerIndex].GetTrainerName());
+                    // Remove the Trainer from file trainers.txt:
+                    RemoveTrainerFromFile(trainerIndex);
+                    System.Console.WriteLine("Trainer removed!");
+                    System.Console.WriteLine("All listings and bookings tied to this trainer are also removed!");
+                }
+            
+            } else System.Console.WriteLine("Trainer ID not found.");    
+        }
+        private void RemoveTrainerFromFile(int trainerIndex){
+            // Remove the search trainer and update the array:
                     Trainers[] temp = new Trainers[trainers.Length-1];
                     // Copy to temp[] the trainers before the removed one:
-                    for (int i = 0; i < searchIndex; i++){
+                    for (int i = 0; i < trainerIndex; i++){
                         temp[i] = trainers[i];
                     }
                     // Copy to temp[] the trainers after the removed one, excluding the removed trainer:
-                    for (int i = searchIndex; i < trainers.Length-1; i++){
+                    for (int i = trainerIndex; i < trainers.Length-1; i++){
                         temp[i] = trainers[i+1];
                     }
 
                     trainers = temp;
                     Trainers.DecCount();
                     Save();
-                    System.Console.WriteLine("Trainer removed!");
-                }
-            
-
-            } else System.Console.WriteLine("Trainer ID not found.");
-            
-
         }
+        // When delete a trainer, any listings or bookings tied to that trainer is deleted as well:
+        // trainer-listing-booking thru trainerName
+        public void RemoveRelatedListingsAndBookings(string trainerName){
+            Listings[] listings = new Listings[100];
+            ListingUtility lUtility = new ListingUtility(listings);
+            Bookings[] bookings = new Bookings[100];
+            BookingUtility bUtility = new BookingUtility(bookings);
+            // Remove LISTING first:
+            lUtility.GetAllListingsFromFile();
+            for (int i = 0; i<Listings.GetCount(); i++){
+                if(listings[i].GetTrainerName() == trainerName){
+                    lUtility.RemoveListingFromFile(i);
+                }
+            }
+            // Remove BOOKING:
+            bUtility.GetAllBookingsFromFile();
+            for (int i = 0; i<Bookings.GetCount(); i++){
+                if(bookings[i].GetTrainerName() == trainerName){
+                    bUtility.RemoveBookingFromFile(i);
+                }
+            }
+        }
+
 
     }
 }

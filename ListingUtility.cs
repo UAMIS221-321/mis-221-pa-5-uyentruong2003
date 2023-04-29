@@ -57,6 +57,10 @@ namespace mis_221_pa_5_uyentruong2003
         }
 
         public void InputTrainer(ref Listings listing){
+            Trainers[] trainers = new Trainers[100];
+            TrainerUtility tUtility = new TrainerUtility(trainers);
+            tUtility.GetAllTrainersFromFile();
+            tUtility.PrintOnScreen();
             // Trainer Validation- is the trainer in the trainers list?
             System.Console.Write("Trainer's name: ");
             string trainer = Console.ReadLine();
@@ -245,8 +249,19 @@ namespace mis_221_pa_5_uyentruong2003
                     ans = Console.ReadLine();
                 }
                 if (ans.ToUpper() == "YES"){
-                    // Remove the searched listing and update the array:
+                    // Remove the Booking tied to this listing:
+                    RemoveRelatedBooking(listings[listingIndex].GetSessionID());
+                    // Remove the listing from file:
+                    RemoveListingFromFile(listingIndex);
+                    System.Console.WriteLine("Session listing removed!");
+                    System.Console.WriteLine("Any booking tied to this session listing is also removed!");
+                }
+            
 
+            } else System.Console.WriteLine("Session ID not found.");
+        }
+        public void RemoveListingFromFile(int listingIndex){
+            // Remove the searched listing and update the array:
                     Listings[] temp = new Listings[listings.Length-1];
                     // Copy to temp[] the listings before the removed one:
                     for (int i = 0; i < listingIndex; i++){
@@ -259,11 +274,16 @@ namespace mis_221_pa_5_uyentruong2003
                     listings = temp;
                     Listings.DecCount();
                     Save();
-                    System.Console.WriteLine("Session removed!");
+        }
+        private void RemoveRelatedBooking(int sessionID){
+            Bookings[] bookings = new Bookings[100];
+            BookingUtility bUtility = new BookingUtility(bookings);
+            bUtility.GetAllBookingsFromFile();
+            for (int i = 0; i<Bookings.GetCount(); i++){
+                if(bookings[i].GetSessionID() == sessionID){
+                    bUtility.RemoveBookingFromFile(i);
                 }
-            
-
-            } else System.Console.WriteLine("Session ID not found.");
+            }
         }
     }
 }   

@@ -166,7 +166,7 @@ namespace mis_221_pa_5_uyentruong2003
         }
 
         // find the Index of the given ID in the listing arr:
-        private int FindIndex(int sessionID){
+        public int FindIndex(int sessionID){
             for (int i = 0; i < Bookings.GetCount(); i++){
                 if (bookings[i].GetSessionID() == sessionID){
                     return i;
@@ -229,13 +229,14 @@ namespace mis_221_pa_5_uyentruong2003
                         // Update the status of the session in LISTINGS back to available
                         UpdateStatusInListings(bookings[bookingIndex].GetSessionID(),"Available");
                         // Delete from the array and transactions.txt file
-                        DeleteBookingFromFile(bookingIndex);
+                        RemoveBookingFromFile(bookingIndex);
+                        System.Console.WriteLine("Booking removed!");
                     }
                 }
 
             } else System.Console.WriteLine("Session ID not found.");
         }
-        private void DeleteBookingFromFile(int bookingIndex){
+        public void RemoveBookingFromFile(int bookingIndex){
             // Remove the searched booking and update the array:
             Bookings[] temp = new Bookings[bookings.Length-1];
             // Copy to temp[] the bookings before the removed one:
@@ -249,7 +250,6 @@ namespace mis_221_pa_5_uyentruong2003
             bookings = temp;
             Bookings.DecCount();
             Save();
-            System.Console.WriteLine("Booking removed!");
         }
     }
 }

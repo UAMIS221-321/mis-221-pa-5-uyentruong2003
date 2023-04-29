@@ -106,7 +106,6 @@ static void AddListings(){
     Listings[] listings = new Listings[100];
     ListingUtility utility = new ListingUtility(listings);
     utility.GetAllListingsFromFile();
-    utility.PrintOnScreen();
     utility.AddListing();
     System.Console.WriteLine();
     PressKeyGoBack();

@@ -1,8 +1,8 @@
 1#Sarah Smith#06/02/2023#9:00 AM#109.22#Booked
 2#Carla Jones#05/12/2023#7:30 AM#111.4#Booked
-5#Jimmy Johns#05/05/2023#10:00 AM#89.01#Booked
 6#Mattie Bryant#05/21/2023#9:00 am#90.89#Booked
 7#Jane Doe#05/03/2023#7:00 pm#100#Available
 8#Jeff Lucas#06/15/2023#4:00 pm#120#Available
 9#Jane Doe#04/29/2023#5:00 pm#95.99#Booked
 10#Jeff Lucas#04/27/2023#9:00 AM#87.33#Booked
+11#Jimmy Johns#04/30/2023#5:00 pm#78.99#Booked
