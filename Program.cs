@@ -203,8 +203,9 @@ static void RunReportsMenu(){
     MainMenu();
 }
 static void IndCusSesReport(){
-    System.Console.WriteLine("Placeholder for IndCusSesReport. Press any key to continue...");
-    Console.ReadKey();
+    Reports report = new Reports();
+    report.IndividualCustomerSession();
+    PressKeyGoBack();
     RunReportsMenu();
 }
 static void HisCusSesReport(){

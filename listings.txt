@@ -6,3 +6,16 @@
 9#Jane Doe#04/29/2023#5:00 pm#95.99#Booked
 10#Jeff Lucas#04/27/2023#9:00 AM#87.33#Booked
 11#Jimmy Johns#04/30/2023#5:00 pm#78.99#Booked
+12#Jane Doe#05/01/2023#4:00 pm#67.99#Booked
+13#Mattie Bryant#05/10/2023#6:00 pm#111.23#Available
+14#Sarah Smith#05/13/2023#7:00 PM#100.11#Available
+15#Carla Jones#06/01/2023#8:00 AM#90.21#Available
+16#Jane Doe#06/04/2023#6:00 am#89.9#Booked
+17#Carla Jones#05/28/2023#3:00 pm#79.99#Available
+18#Mattie Bryant#05/27/2023#12:00 pm#100.99#Booked
+19#Jeff Lucas#05/24/2023#3:00 pm#123.44#Available
+20#Sarah Smith#05/04/2023#1:00 pm#66.78#Booked
+21#Jimmy Johns#05/08/2023#11:00 am#98.88#Booked
+22#Sarah Smith#05/30/2023#12:00 pm#90.33#Available
+23#Carla Jones#05/09/2023#6:00 pm#110.22#Available
+24#Jeff Lucas#05/06/2023#4:00 pm#96.44#Available
