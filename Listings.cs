@@ -108,7 +108,7 @@ namespace mis_221_pa_5_uyentruong2003
 
         public override string ToString()
         {
-            return $"SessionID: {this.sessionID}\nTrainer: {this.trainerName}\nDate:{this.sessionDate}\nTime: {this.sessionTime}\nPrice: ${this.sessionCost}\nStatus: {this.sessionStatus}\n \n";
+            return $"SessionID: {this.sessionID}\tTrainer: {this.trainerName}\tDate:{this.sessionDate}\tTime: {this.sessionTime}\tPrice: ${this.sessionCost}\tStatus: {this.sessionStatus}";
         }
         public string ToFile()
         {

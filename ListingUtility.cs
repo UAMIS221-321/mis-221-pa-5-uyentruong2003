@@ -117,8 +117,8 @@ namespace mis_221_pa_5_uyentruong2003
         }
 
         private bool isValidDate(string input){
-            // Attempt to parse the input as a DateTime object
-            if (DateTime.TryParseExact(input, "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime date)){
+            // Attempt to parse the input as a DateTime object & check if the date is after today
+            if (DateTime.TryParseExact(input, "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime date) && date > DateTime.Today){
                 // If the parsing succeeded, check that the parsed date matches the input string
                 // This is necessary to ensure that the input string is in the correct format
                 return date.ToString("MM/dd/yyyy") == input;
@@ -174,7 +174,7 @@ namespace mis_221_pa_5_uyentruong2003
             System.Console.WriteLine("Session Added!");
         }
         // Save:
-        private void Save(){
+        public void Save(){
             //open file:
             StreamWriter outFile = new StreamWriter("listings.txt");
             //process file:
@@ -188,27 +188,27 @@ namespace mis_221_pa_5_uyentruong2003
         private int CheckInt(string input){
             int outInt;
             while (!int.TryParse(input, out outInt)){
-                System.Console.WriteLine("Please input a valid number: ");
+                System.Console.Write("Please input a valid number: ");
                 input = Console.ReadLine();
             }
             outInt = int.Parse(input);
             return outInt;
         }
 
-        // Get the Listing ID for the serched Session:
+        // Prompt user for sessionID and return the index of the searched Session:
         private int GetSearchedListingIndex(string action){
             // Prompt user to enter the listing ID
             System.Console.WriteLine($"Enter the ID of the session you want to {action}: ");    
             // Check & convert to integer if the input is a valid integer:
-            int searchedListingsID = CheckInt(Console.ReadLine());
+            int sessionID = CheckInt(Console.ReadLine());
 
-            // Get the index of the searched listing:
-            int searchIndex = FindIndexFromListingsArr(searchedListingsID);
+            // Get the index of listing given its ID:
+            int searchIndex = FindIndex(sessionID);
             return searchIndex;
         }
 
         // find the Index of the given ID in the listing arr:
-        private int FindIndexFromListingsArr(int searchID){
+        public int FindIndex(int searchID){
             for (int i = 0; i < Listings.GetCount(); i++){
                 if (listings[i].GetSessionID() == searchID){
                     return i;
@@ -220,25 +220,24 @@ namespace mis_221_pa_5_uyentruong2003
         // Edit:
         public void EditListing(){
             // get the index of the searched listing from the array by prompting user for the SessionID:
-            int searchIndex = GetSearchedListingIndex("edit");
-            // Search through the array of trainers:
-            if (searchIndex != -1){
+            int listingIndex = GetSearchedListingIndex("edit");
+            // Search through the array of listings:
+            if (listingIndex != -1){
                 System.Console.WriteLine("Enter the updated info of the session below:");
                 // Prompt user for updated input:
-                PromptUser(ref listings[searchIndex]);   
+                PromptUser(ref listings[listingIndex]);   
             } else System.Console.WriteLine("Session ID not found.");
 
             Save();
-
         }
 
         // Delete:
         public void DeleteListing(){
             // Get the searchIndex:
-            int searchIndex = GetSearchedListingIndex("delete");
-            if (searchIndex != -1){
+            int listingIndex = GetSearchedListingIndex("delete");
+            if (listingIndex != -1){
                 // Ask for confirmation:
-                System.Console.WriteLine($"Are you sure you want to delete:\n\"{listings[searchIndex].ToString()}\" ?");
+                System.Console.WriteLine($"Are you sure you want to delete:\n\"{listings[listingIndex].ToString()}\" ?");
                 string ans = Console.ReadLine();
                 // answer validation:
                 while(ans.ToUpper() != "YES" && ans.ToUpper()!= "NO"){
@@ -250,11 +249,11 @@ namespace mis_221_pa_5_uyentruong2003
 
                     Listings[] temp = new Listings[listings.Length-1];
                     // Copy to temp[] the listings before the removed one:
-                    for (int i = 0; i < searchIndex; i++){
+                    for (int i = 0; i < listingIndex; i++){
                         temp[i] = listings[i];
                     }
                     // Copy to temp[] the listings after the removed one, excluding the removed listing:
-                    for (int i = searchIndex; i < listings.Length-1; i++){
+                    for (int i = listingIndex; i < listings.Length-1; i++){
                         temp[i] = listings[i+1];
                     }
                     listings = temp;

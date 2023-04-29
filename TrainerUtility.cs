@@ -103,34 +103,45 @@ namespace mis_221_pa_5_uyentruong2003
             string input = Console.ReadLine();
             
             // Check & convert to integer if the input is a valid integer:
-            int searchedTrainerID = CheckInt(input);
+            int trainerID = CheckInt(input);
 
             // Get the index of the searched trainer:
-            int searchIndex = FindIndexFromTrainersArr(searchedTrainerID);
+            int searchIndex = FindIndex(trainerID);
             return searchIndex;
         }
 
-        // Find the searched trainer index in the array:
-        private int FindIndexFromTrainersArr(int searchID){
+        // Find the searched trainer index in the array given the trainerID:
+        private int FindIndex(int trainerID){
             for (int i = 0; i < Trainers.GetCount(); i++){
-                if (trainers[i].GetTrainerID() == searchID){
+                if (trainers[i].GetTrainerID() == trainerID){
                     return i;
                 }
             }
             return -1;
+        }
+
+        // Find the searched trainer index in the array given the trainerName:
+        public int FindIndexGivenTrainerName (string trainerName){
+            for(int i =0; i<Trainers.GetCount(); i++){
+                if (trainers[i].GetTrainerName() == trainerName){
+                    return i;
+                    break;
+                }
+            }
+            return -1; 
         }
         
 
         // Edit:
         public void EditTrainer(){
             // Get the searchIndex:
-            int searchIndex = GetSearchedTrainerIndex("edit");
+            int trainerIndex = GetSearchedTrainerIndex("edit");
 
             // Search through the array of trainers:
-            if (searchIndex != -1){
+            if (trainerIndex != -1){
                 System.Console.WriteLine("Enter the updated info of the trainer below:");
                 // Prompt user for updated input:
-                PromptUser(trainers[searchIndex]);   
+                PromptUser(trainers[trainerIndex]);   
             } else System.Console.WriteLine("Trainer ID not found.");
 
             Save();
