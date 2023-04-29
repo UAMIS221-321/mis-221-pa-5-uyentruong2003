@@ -36,13 +36,21 @@ namespace mis_221_pa_5_uyentruong2003
             //Prompt user input for the all booking info; especially return sessionID
             PromptUser(ref newBooking);
 
-            // Add the new booking to the bookings array:
-            bookings[Bookings.GetCount()] = newBooking;
-            Bookings.IncCount();
+            //New Booking is only made if the date hasn't passed:
+            if (DateTime.Parse(newBooking.GetSessionDate())<DateTime.Today){
+                System.Console.WriteLine("The session date has already passed. Booking can't be made");
+            }else{
+                //Set status of the booking in LISTINGS & BOOKINGS:
+                newBooking.SetSessionStatus("Booked");
+                UpdateStatusInListings(newBooking.GetSessionID(), "Booked");
+                // Add the new booking to the bookings array:
+                bookings[Bookings.GetCount()] = newBooking;
+                Bookings.IncCount();
 
-            // Save the updated listing array to file:
-            Save();
-            System.Console.WriteLine("Booking Added!");
+                // Save the updated listing array to file:
+                Save();
+                System.Console.WriteLine("Booking Added!");
+            }       
         }
         // Update session status in listing:
         private void UpdateStatusInListings(int sessionID, string status){
@@ -68,10 +76,7 @@ namespace mis_221_pa_5_uyentruong2003
             //Retrieve trainerID from Trainers given the trainerName; then, add them to newBooking:
             RetrieveFromTrainers(ref booking, trainerName);
             //Prompt for customerName & customerEmail and then add to newBooking:
-            GetCustomerInfo(ref booking);
-            
-            //Set the status of the session in LISTINGS to "Booked":
-            UpdateStatusInListings(sessionID, "Booked");           
+            GetCustomerInfo(ref booking); 
         }
 
         //Prompt for sessionID input - validate: only VALID ID of AVAILABLE session
@@ -151,25 +156,25 @@ namespace mis_221_pa_5_uyentruong2003
         // Prompt user for sessionID and return the index of the searched Booking:
         private int GetSearchedBookingIndex(string action){
             // Prompt user to enter the session ID
-            System.Console.WriteLine($"Enter the sessionID of the booking you want to {action}: ");    
+            System.Console.Write($"Enter the sessionID of the booking you want to {action}: ");    
             // Check & convert to integer if the input is a valid integer:
             int sessionID = CheckInt(Console.ReadLine());
 
             // Get the index of the booking given its sessionID:
-            int searchIndex = FindIndex(sessionID);
-            return searchIndex;
+            int bookingIndex = FindIndex(sessionID);
+            return bookingIndex;
         }
 
         // find the Index of the given ID in the listing arr:
-        private int FindIndex(int searchID){
-            for (int i = 0; i < Listings.GetCount(); i++){
-                if (bookings[i].GetSessionID() == searchID){
+        private int FindIndex(int sessionID){
+            for (int i = 0; i < Bookings.GetCount(); i++){
+                if (bookings[i].GetSessionID() == sessionID){
                     return i;
                 }
             }
             return -1;
         }
-        private void UpdateStatusInBooking(int bookingIndex){
+        private void UpdateStatusInBookings(int bookingIndex){
             DateTime date = DateTime.Parse(bookings[bookingIndex].GetSessionDate());
             if (date < DateTime.Today){
                 System.Console.Write("The session has already passed. Is it a 'Completed' or 'No-Show' booking? ");
@@ -180,7 +185,7 @@ namespace mis_221_pa_5_uyentruong2003
                 }
                 bookings[bookingIndex].SetSessionStatus(status);
             } else{
-                bookings[bookingIndex].SetSessionDate("Booked");
+                bookings[bookingIndex].SetSessionStatus("Booked");
             }
         }
         public void EditBooking(){
@@ -190,52 +195,61 @@ namespace mis_221_pa_5_uyentruong2003
             if (bookingIndex != -1){
                 System.Console.WriteLine("Enter the updated info of the booking below:");
                 // Prompt user for updated input:
-                PromptUser(ref bookings[bookingIndex]);   
+                UpdateStatusInListings(bookings[bookingIndex].GetSessionID(),"Available"); //return the status of the booking to available for editing
+                PromptUser(ref bookings[bookingIndex]);
+                // Update the status of the session in BOOKINGS (Completed/No-show) if the session already passed;
+                // else, keep the default setting to "Booked"
+                UpdateStatusInBookings(bookingIndex);
+                //Update status in LISTINGS to "Booked":
+                UpdateStatusInListings(bookings[bookingIndex].GetSessionID(),"Booked");
+
+                // Save the updated booking to file:
+                Save();
             } else System.Console.WriteLine("Session ID not found.");
             
-            // Update the status of the session in BOOKINGS (Completed/No-show) if the session already passed;
-            // else, keep the default setting to "Booked"
-            UpdateStatusInBooking(bookingIndex);
-
-            // Save the updated booking to file:
-            Save();
+            
         }
-        public void DeleteBooking(){
+        public void CancelBooking(){
             // Get the searchIndex:
-            int bookingIndex = GetSearchedBookingIndex("delete");
+            int bookingIndex = GetSearchedBookingIndex("cancel");
             if (bookingIndex != -1){
-                // Ask for confirmation:
-                System.Console.WriteLine($"Are you sure you want to delete:\n\"{bookings[bookingIndex].ToString()}\" ?");
-                string ans = Console.ReadLine();
-                // answer validation:
-                while(ans.ToUpper() != "YES" && ans.ToUpper()!= "NO"){
-                    System.Console.Write("Please only enter Yes or No: ");
-                    ans = Console.ReadLine();
-                }
-                if (ans.ToUpper() == "YES"){
-                    // Remove the searched booking and update the array:
-
-                    Bookings[] temp = new Bookings[bookings.Length-1];
-                    // Copy to temp[] the bookings before the removed one:
-                    for (int i = 0; i < bookingIndex; i++){
-                        temp[i] = bookings[i];
+                // Check the sessionDate. Only allow cancelling BEFORE the day of booking
+                if (DateTime.Parse(bookings[bookingIndex].GetSessionDate()) <= DateTime.Today){
+                    System.Console.WriteLine("You can only cancel booking before the date of the session date.");
+                }else{
+                    // Ask for confirmation:
+                    System.Console.WriteLine($"Are you sure you want to delete:\n\"{bookings[bookingIndex].ToString()}\" ?");
+                    string ans = Console.ReadLine();
+                    // answer validation:
+                    while(ans.ToUpper() != "YES" && ans.ToUpper()!= "NO"){
+                        System.Console.Write("Please only enter Yes or No: ");
+                        ans = Console.ReadLine();
                     }
-                    // Copy to temp[] the bookings after the removed one, excluding the removed booking:
-                    for (int i = bookingIndex; i < bookings.Length-1; i++){
-                        temp[i] = bookings[i+1];
+                    if (ans.ToUpper() == "YES"){
+                        // Update the status of the session in LISTINGS back to available
+                        UpdateStatusInListings(bookings[bookingIndex].GetSessionID(),"Available");
+                        // Delete from the array and transactions.txt file
+                        DeleteBookingFromFile(bookingIndex);
                     }
-                    bookings = temp;
-                    Listings.DecCount();
-                    Save();
-                    System.Console.WriteLine("Session removed!");
                 }
-            
 
             } else System.Console.WriteLine("Session ID not found.");
-            // Only allow cancelling BEFORE the day of booking
-            // Delete from the array and transactions.txt file
-            // Update the status of the session in LISTINGS to available
-
+        }
+        private void DeleteBookingFromFile(int bookingIndex){
+            // Remove the searched booking and update the array:
+            Bookings[] temp = new Bookings[bookings.Length-1];
+            // Copy to temp[] the bookings before the removed one:
+            for (int i = 0; i < bookingIndex; i++){
+                temp[i] = bookings[i];
+            }
+            // Copy to temp[] the bookings after the removed one, excluding the removed booking:
+            for (int i = bookingIndex; i < bookings.Length-1; i++){
+                temp[i] = bookings[i+1];
+            }
+            bookings = temp;
+            Bookings.DecCount();
+            Save();
+            System.Console.WriteLine("Booking removed!");
         }
     }
 }

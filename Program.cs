@@ -140,8 +140,8 @@ static void DeleteListings(){
 static void ManageBookingsMenu(){
     Console.Clear();
     string prompt = "MANAGE BOOKINGS MENU:";
-    string[] options = {"View Bookings", "Add Bookings","Edit Bookings","Delete Bookings", "Exit"};
-    Action[] actions = {ViewBookings, AddBookings, EditBookings,DeleteBookings,GoBack};
+    string[] options = {"View Bookings", "Add Bookings","Edit Bookings","Cancel Bookings", "Exit"};
+    Action[] actions = {ViewBookings, AddBookings, EditBookings,CancelBookings,GoBack};
     Menu manageBookingsMenu = new Menu(prompt, options, actions);
     int selectedIndex = manageBookingsMenu.MakeChoice();
     manageBookingsMenu.RouteEm(selectedIndex);
@@ -149,26 +149,44 @@ static void ManageBookingsMenu(){
     MainMenu();
 }
 static void ViewBookings(){
-    System.Console.WriteLine("Placeholder for View Bookings. Press any key to continue...");
-    Console.ReadKey();
+    Bookings[] bookings = new Bookings[100];
+    BookingUtility utility = new BookingUtility(bookings);
+    utility.GetAllBookingsFromFile();
+    utility.PrintOnScreen();
+    System.Console.WriteLine();
+    PressKeyGoBack();
     // Automatically reprompt managebooking menu
     ManageBookingsMenu();
 }
 static void AddBookings(){
-    System.Console.WriteLine("Placeholder for Add Bookings. Press any key to continue...");
-    Console.ReadKey();
+    Bookings[] bookings = new Bookings[100];
+    BookingUtility utility = new BookingUtility(bookings);
+    utility.GetAllBookingsFromFile();
+    utility.AddBooking();
+    System.Console.WriteLine();
+    PressKeyGoBack();
     // Automatically reprompt managebooking menu
     ManageBookingsMenu();
 }
 static void EditBookings(){
-    System.Console.WriteLine("Placeholder for Edit Bookings. Press any key to continue...");
-    Console.ReadKey();
+    Bookings[] bookings = new Bookings[100];
+    BookingUtility utility = new BookingUtility(bookings);
+    utility.GetAllBookingsFromFile();
+    utility.PrintOnScreen();
+    utility.EditBooking();
+    System.Console.WriteLine();
+    PressKeyGoBack();
     // Automatically reprompt managebooking menu
     ManageBookingsMenu();
 }
-static void DeleteBookings(){
-    System.Console.WriteLine("Placeholder for Delete Bookings. Press any key to continue...");
-    Console.ReadKey();
+static void CancelBookings(){
+    Bookings[] bookings = new Bookings[100];
+    BookingUtility utility = new BookingUtility(bookings);
+    utility.GetAllBookingsFromFile();
+    utility.PrintOnScreen();
+    utility.CancelBooking();
+    System.Console.WriteLine();
+    PressKeyGoBack();
     // Automatically reprompt managebooking menu
     ManageBookingsMenu();
 }

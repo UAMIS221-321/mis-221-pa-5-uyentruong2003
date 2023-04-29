@@ -198,7 +198,7 @@ namespace mis_221_pa_5_uyentruong2003
         // Prompt user for sessionID and return the index of the searched Session:
         private int GetSearchedListingIndex(string action){
             // Prompt user to enter the listing ID
-            System.Console.WriteLine($"Enter the ID of the session you want to {action}: ");    
+            System.Console.Write($"Enter the ID of the session you want to {action}: ");    
             // Check & convert to integer if the input is a valid integer:
             int sessionID = CheckInt(Console.ReadLine());
 

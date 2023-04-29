@@ -99,7 +99,7 @@ namespace mis_221_pa_5_uyentruong2003
         // GetSearchIndex:
         private int GetSearchedTrainerIndex(string action){
             // Prompt user to enter the trainer ID
-            System.Console.WriteLine($"Enter the ID of the trainer you want to {action}: ");    
+            System.Console.Write($"Enter the ID of the trainer you want to {action}: ");    
             string input = Console.ReadLine();
             
             // Check & convert to integer if the input is a valid integer:
