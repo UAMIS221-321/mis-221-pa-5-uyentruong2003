@@ -56,12 +56,12 @@ namespace mis_221_pa_5_uyentruong2003
             // Prompt for name:
             System.Console.Write("Trainer's name: ");
             trainer.SetTrainerName(Console.ReadLine());
-            //Prompt for Mailing Address:
-            System.Console.Write("Trainer's Mailing Address: ");
-            trainer.SetTrainerMailingAddress(Console.ReadLine());
-            //Prompt for Email Address:
-            System.Console.Write("Trainer's Email Address: ");
-            trainer.SetTrainerEmailAddress(Console.ReadLine());
+            //Prompt for Address:
+            System.Console.Write("Trainer's Address: ");
+            trainer.SetTrainerAddress(Console.ReadLine());
+            //Prompt for Email:
+            System.Console.Write("Trainer's Email: ");
+            trainer.SetTrainerEmail(Console.ReadLine());
         }
 
         // CheckInt:

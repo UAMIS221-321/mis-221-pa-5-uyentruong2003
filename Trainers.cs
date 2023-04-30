@@ -4,8 +4,8 @@ namespace mis_221_pa_5_uyentruong2003
     {
         private int trainerID;
         private string trainerName;
-        private string trainerMailingAddress;
-        private string trainerEmailAddress;
+        private string trainerAddress;
+        private string trainerEmail;
         static private int count;
         static private int maxID;
         // Constructors:
@@ -13,11 +13,11 @@ namespace mis_221_pa_5_uyentruong2003
 
         }
 
-        public Trainers (int trainerID, string trainerName, string trainerMailingAddress, string trainerEmailAddress){
+        public Trainers (int trainerID, string trainerName, string trainerAddress, string trainerEmail){
             this.trainerID = trainerID;
             this.trainerName = trainerName;
-            this.trainerMailingAddress = trainerMailingAddress;
-            this.trainerEmailAddress = trainerEmailAddress;
+            this.trainerAddress = trainerAddress;
+            this.trainerEmail = trainerEmail;
         }
 
         // Settors & Gettors:
@@ -58,21 +58,21 @@ namespace mis_221_pa_5_uyentruong2003
         }
 
         // trainerMailingAddress:
-        public void SetTrainerMailingAddress(string trainerMailingAddress){
-            this.trainerMailingAddress = trainerMailingAddress;
+        public void SetTrainerAddress(string trainerAddress){
+            this.trainerAddress = trainerAddress;
         }
 
-        public string GetTrainerMailingAddress(){
-            return trainerMailingAddress;
+        public string GetTrainerAddress(){
+            return trainerAddress;
         }
 
         // trainerEmailAddress:
-        public void SetTrainerEmailAddress(string trainerEmailAddress){
-            this.trainerEmailAddress = trainerEmailAddress;
+        public void SetTrainerEmail(string trainerEmail){
+            this.trainerEmail = trainerEmail;
         }
 
-        public string GetTrainerEmailAddress(){
-            return trainerEmailAddress;
+        public string GetTrainerEmail(){
+            return trainerEmail;
         }
 
         static public void SetMaxID(int maxID){
@@ -89,12 +89,12 @@ namespace mis_221_pa_5_uyentruong2003
 
         public override string ToString()
         {
-            return $"{trainerID} - {trainerName} - {trainerMailingAddress} - {trainerEmailAddress}";
+            return $"{trainerID} - {trainerName} - {trainerAddress} - {trainerEmail}";
         }
 
         public string ToFile()
         {
-            return $"{trainerID}#{trainerName}#{trainerMailingAddress}#{trainerEmailAddress}";
+            return $"{trainerID}#{trainerName}#{trainerAddress}#{trainerEmail}";
         }
     }
 }  
