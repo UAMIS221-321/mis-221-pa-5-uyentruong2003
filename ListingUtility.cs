@@ -73,7 +73,7 @@ namespace mis_221_pa_5_uyentruong2003
             System.Console.Write("Session's date: ");
             string date = Console.ReadLine();
             Func<string,bool> CheckDate = isValidDate;
-            listing.SetSessionDate(InputValidation(ref date, "date", CheckDate));
+            listing.SetSessionDate(InputValidation(ref date, "date (date must be in mm/dd/yyyy format and after today)", CheckDate));
         }
 
         public void InputTime(ref Listings listing){
@@ -212,9 +212,9 @@ namespace mis_221_pa_5_uyentruong2003
         }
 
         // find the Index of the given ID in the listing arr:
-        public int FindIndex(int searchID){
+        public int FindIndex(int sessionID){
             for (int i = 0; i < Listings.GetCount(); i++){
-                if (listings[i].GetSessionID() == searchID){
+                if (listings[i].GetSessionID() == sessionID){
                     return i;
                 }
             }

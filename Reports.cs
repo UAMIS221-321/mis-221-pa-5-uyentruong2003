@@ -12,20 +12,25 @@ namespace mis_221_pa_5_uyentruong2003
             bUtility.GetAllBookingsFromFile();
             bUtility.PrintOnScreen();
             // Prompt for user input and validate input:
+            System.Console.WriteLine();
             string customerEmail = InputCustomerEmail(bookings);
+            System.Console.WriteLine();
             // Clean previous content of report.txt file:
             ResetReportFile("INDIVIDUAL CUSTOMER SESSION REPORT");
+            //Open file:
+            StreamWriter outFile = new StreamWriter("report.txt",true);
+            outFile.WriteLine($"Cusomer Email: {customerEmail}");
             // Loop through bookings to print out any bookings with the given customerEmail:
             for (int i = 0; i<Bookings.GetCount(); i++){
                 if (bookings[i].GetCustomerEmail() == customerEmail){
                     //Print on screen
                     System.Console.WriteLine(bookings[i].ToString());
                     //Save in the report.txt file
-                    StreamWriter outFile = new StreamWriter("report.txt",true);
                     outFile.WriteLine(bookings[i].ToFile());
-                    outFile.Close();
                 }
             }
+            //Close file:
+            outFile.Close();
             System.Console.WriteLine("\nA report is now available in 'report.txt' file.");   
         }
 
@@ -68,15 +73,16 @@ namespace mis_221_pa_5_uyentruong2003
             // Print out on screen:
             System.Console.WriteLine("\nSorted By Customer Name Then By Date...");
             bUtility.PrintOnScreen();
-            // Save to File:
+            // Open file to save:
             StreamWriter outFile = new StreamWriter("report.txt",true);
             // Save the sorted bookings:
             for (int i = 0; i<Bookings.GetCount(); i++){
                 outFile.WriteLine(bookings[i].ToFile());
             }
-            // Do CountByCustomer & Print on Screen:
+            // Do CountByCustomer, Print on Screen, and Save to file:
             System.Console.WriteLine();
             CountByCustomer(bookings, ref outFile);
+            // Close file:
             outFile.Close();  
             System.Console.WriteLine("\nA report is now available in 'report.txt' file.");
         }
@@ -108,18 +114,18 @@ namespace mis_221_pa_5_uyentruong2003
                 if (bookings[i].GetCustomerName() == curr){
                     count ++;
                 }else{
-                    ProcessBreak(ref curr, ref count, bookings[i], ref outFile);
+                    ProcessBreakForCountByCustomer(ref curr, ref count, bookings[i], ref outFile);
                 }
             }
-            ProcessBreak(curr, count, ref outFile);
+            ProcessBreakForCountByCustomer(curr, count, ref outFile);
         }
-        private void ProcessBreak(ref string curr, ref int count, Bookings newBooking, ref StreamWriter outFile){
+        private void ProcessBreakForCountByCustomer(ref string curr, ref int count, Bookings newBooking, ref StreamWriter outFile){
             System.Console.WriteLine($"Customer: {curr} --> # of Bookings: {count}");
             outFile.WriteLine($"Customer: {curr} --> # of Bookings: {count}");
             curr = newBooking.GetCustomerName();
             count = 1;
         }
-        private void ProcessBreak(string curr, int count, ref StreamWriter outFile){
+        private void ProcessBreakForCountByCustomer(string curr, int count, ref StreamWriter outFile){
             System.Console.WriteLine($"Customer: {curr} --> # of Bookings: {count}");
             outFile.WriteLine($"Customer: {curr} --> # of Bookings: {count}");
         }
@@ -135,22 +141,29 @@ namespace mis_221_pa_5_uyentruong2003
 
             // Clean previous content of report.txt file:
             ResetReportFile("HISTORICAL REVENUE REPORT");
-            // Sort the bookings by date:
-            SortByDate(ref bookings);
             //Prompt user to input option to calc revenue by year or by month:
-            System.Console.Write("Revenue Report by month or by year? Enter 'month' or 'year':");
+            System.Console.Write("Revenue Report by month or by year? Enter 'month' or 'year': ");
             string option = Console.ReadLine();
             while (option.ToLower() != "month" && option.ToLower() != "year"){
                 System.Console.WriteLine("Invalid input. Please try again.");
                 System.Console.Write("Enter 'month' or 'year': ");
                 option = Console.ReadLine();
             }
+            // Open file to save:
+            StreamWriter outFile = new StreamWriter("report.txt",true);
+            // Sort the bookings by date for control break later:
+            SortByDate(ref bookings);
             if (option.ToLower() == "month"){
-                RevenueByMonth(bookings, listings);
+                outFile.WriteLine("Revenue By MONTH Breakdown:");
+                // Calc the revenue by month, print on screen, and save in file:
+                RevenueByMonth(bookings, listings, lUtility, ref outFile);
             } else{
-                RevenueByYear(bookings, listings);
+                outFile.WriteLine("Revenue By YEAR Breakdown:");
+                RevenueByYear(bookings, listings, lUtility, ref outFile);
             }
-
+            // Close file:
+            outFile.Close();
+            System.Console.WriteLine("\nA report is now available in 'report.txt' file.");
         }
         private void SortByDate(ref Bookings[] bookings){
             for (int i = 0; i<Bookings.GetCount()-1; i++){
@@ -166,13 +179,64 @@ namespace mis_221_pa_5_uyentruong2003
         
             }
         }
-        private void RevenueByMonth(Bookings[] bookings, Listings[] listings){
-            
-
+        private void RevenueByMonth(Bookings[] bookings, Listings[] listings, ListingUtility lUtility, ref StreamWriter outFile){
+            // Get the month and the year of the first booking
+            string curr = (DateTime.Parse(bookings[0].GetSessionDate())).ToString("MM/yyyy");
+            // Get the cost of the booking from LISTING to calc the revenue
+            int listingIndex = lUtility.FindIndex(bookings[0].GetSessionID());
+            double rev = listings[listingIndex].GetSessionCost();
+            for (int i = 0; i< Bookings.GetCount(); i++){
+                if ((DateTime.Parse(bookings[i].GetSessionDate())).ToString("MM/yyyy") == curr){
+                    //accumulate the cost of the booking to the group's rev:
+                    listingIndex = lUtility.FindIndex(bookings[i].GetSessionID());
+                    rev += listings[listingIndex].GetSessionCost();
+                } else{
+                    ProcessBreakForRevByMonth(ref curr, ref rev, bookings[i], listings, lUtility, ref outFile);
+                }
+            }
+            ProcessBreakForRevByTime(curr, rev, ref outFile);  
         }
-        private void RevenueByYear(Bookings[] bookings, Listings[] listings){
-
+        private void ProcessBreakForRevByMonth(ref string curr, ref double rev, Bookings newBooking, 
+                                            Listings[] listings, ListingUtility lUtility, ref StreamWriter outFile){
+            System.Console.WriteLine($"{curr} --> Revenue: ${rev}");
+            outFile.WriteLine($"{curr} --> Revenue: ${rev}");
+            // Get the month & year of the booking to start a new group:
+            curr = (DateTime.Parse(newBooking.GetSessionDate())).ToString("MM/yyyy");
+            // Get the cost of that booking from LISTING to start new revenue calc:
+            int listingIndex = lUtility.FindIndex(newBooking.GetSessionID());
+            rev = listings[listingIndex].GetSessionCost();
         }
-        
+
+        private void ProcessBreakForRevByTime(string curr, double rev, ref StreamWriter outFile){
+            System.Console.WriteLine($"{curr} --> Revenue: ${rev}");
+            outFile.WriteLine($"{curr} --> Revenue: ${rev}");
+        }
+        private void RevenueByYear(Bookings[] bookings, Listings[] listings, ListingUtility lUtility, ref StreamWriter outFile){
+            // Get the year of the first booking
+            string curr = (DateTime.Parse(bookings[0].GetSessionDate())).ToString("yyyy");
+            // Get the cost of the booking from LISTING to calc the revenue
+            int listingIndex = lUtility.FindIndex(bookings[0].GetSessionID());
+            double rev = listings[listingIndex].GetSessionCost();
+            for (int i = 0; i< Bookings.GetCount(); i++){
+                if ((DateTime.Parse(bookings[i].GetSessionDate())).ToString("yyyy") == curr){
+                    //accumulate the cost of the booking to the group's rev:
+                    listingIndex = lUtility.FindIndex(bookings[i].GetSessionID());
+                    rev += listings[listingIndex].GetSessionCost();
+                } else{
+                    ProcessBreakForRevByYear(ref curr, ref rev, bookings[i], listings, lUtility, ref outFile);
+                }
+            }
+            ProcessBreakForRevByTime(curr, rev, ref outFile);
+        }
+        private void ProcessBreakForRevByYear(ref string curr, ref double rev, Bookings newBooking, 
+                                            Listings[] listings, ListingUtility lUtility, ref StreamWriter outFile){
+            System.Console.WriteLine($"{curr} --> Revenue: ${rev}");
+            outFile.WriteLine($"{curr} --> Revenue: ${rev}");
+            // Get the month & year of the booking to start a new group:
+            curr = (DateTime.Parse(newBooking.GetSessionDate())).ToString("yyyy");
+            // Get the cost of that booking from LISTING to start new revenue calc:
+            int listingIndex = lUtility.FindIndex(newBooking.GetSessionID());
+            rev = listings[listingIndex].GetSessionCost();
+        }
     }
 }

@@ -83,7 +83,7 @@ namespace mis_221_pa_5_uyentruong2003
 
         //ToString():
         public override string ToString(){
-            return $"SessionID: {sessionID}\tCustomer Name: {customerName}\tCustomer Email: {customerEmail}\tSession Date: {sessionDate}\tTrainerID: {trainerID}\tTrainer Name: {trainerName}\tSession Status: {sessionStatus}";
+            return $"SessionID: {sessionID}\tCustomer: {customerName}\tCustomer Email: {customerEmail}\tDate: {sessionDate}\tTrainerID: {trainerID}\tTrainer: {trainerName}\tStatus: {sessionStatus}";
         }
         public  string ToFile(){
             return $"{sessionID}#{customerName}#{customerEmail}#{sessionDate}#{trainerID}#{trainerName}#{sessionStatus}";

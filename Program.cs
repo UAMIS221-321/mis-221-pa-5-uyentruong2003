@@ -223,8 +223,10 @@ static void HisCusSesReport(){
     RunReportsMenu();
 }
 static void HisRevReport(){
-    System.Console.WriteLine("Placeholder for HisRevReport. Press any key to continue...");
-    Console.ReadKey();
+    Reports report = new Reports();
+    report.HistoricalRevenue();
+    System.Console.WriteLine();
+    PressKeyGoBack();
     RunReportsMenu();
 }
 
