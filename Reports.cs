@@ -194,7 +194,7 @@ namespace mis_221_pa_5_uyentruong2003
                     ProcessBreakForRevByMonth(ref curr, ref rev, bookings[i], listings, lUtility, ref outFile);
                 }
             }
-            ProcessBreakForRevByTime(curr, rev, ref outFile);  
+            ProcessBreakForRevenue(curr, rev, ref outFile);  
         }
         private void ProcessBreakForRevByMonth(ref string curr, ref double rev, Bookings newBooking, 
                                             Listings[] listings, ListingUtility lUtility, ref StreamWriter outFile){
@@ -207,7 +207,7 @@ namespace mis_221_pa_5_uyentruong2003
             rev = listings[listingIndex].GetSessionCost();
         }
 
-        private void ProcessBreakForRevByTime(string curr, double rev, ref StreamWriter outFile){
+        private void ProcessBreakForRevenue(string curr, double rev, ref StreamWriter outFile){
             System.Console.WriteLine($"{curr} --> Revenue: ${rev}");
             outFile.WriteLine($"{curr} --> Revenue: ${rev}");
         }
@@ -226,7 +226,7 @@ namespace mis_221_pa_5_uyentruong2003
                     ProcessBreakForRevByYear(ref curr, ref rev, bookings[i], listings, lUtility, ref outFile);
                 }
             }
-            ProcessBreakForRevByTime(curr, rev, ref outFile);
+            ProcessBreakForRevenue(curr, rev, ref outFile);
         }
         private void ProcessBreakForRevByYear(ref string curr, ref double rev, Bookings newBooking, 
                                             Listings[] listings, ListingUtility lUtility, ref StreamWriter outFile){
